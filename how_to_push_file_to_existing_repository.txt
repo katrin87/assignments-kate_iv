@@ -1,0 +1,10 @@
+How_to_push_file
+
+cd assignments_kate_iv/
+git status
+git add file1 file2
+git status 
+git commit -m "file commit"
+git push origin master
+Username for 'https://github.com': katrin87
+Password for 'https://katrin87@github.com':
