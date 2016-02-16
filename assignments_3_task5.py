@@ -10,7 +10,11 @@ def calculate(numbers, operations):
     :param operations: List of the operations
     (supported only "+" and "-" operations)
     :return: Result of calculations
+<<<<<<< HEAD
     """"
+=======
+    """
+>>>>>>> 4f353e7f9dde43174365a15f1671bce293f89e1c
     if len(numbers) != len(operations) + 1:
         raise ValueError("Errors in given data")
     operation_dict = {
