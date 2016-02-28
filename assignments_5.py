@@ -94,11 +94,11 @@ def reconstruct_protein_alignment(args):
         triplet = []
         gap_counter = 0
         aminoacid_seq = []
-        for elem in seq:
-            if elem == GAP:
+        for char in seq:
+            if char == GAP:
                 gap_counter += 1
-            elif elem in NUCLEOTIDES:
-                triplet.append(elem)
+            elif char in NUCLEOTIDES:
+                triplet.append(char)
             else:
                 raise ValueError ("Incorrect symbol in sequence")
             if gap_counter == 3:
