@@ -73,9 +73,8 @@ CODONS = {
 }
 
 
-def translator(triplet):
-    if triplet in CODONS.keys():
-        return CODONS[triplet]
+
+
 
 def reconstruct_protein_alignment(args):
     """
@@ -87,6 +86,8 @@ def reconstruct_protein_alignment(args):
     :return: tuple of aligned protein sequence
     """
     aminoacid_seq_massive = []
+    def translator(triplet):
+        return CODONS[triplet]
     for seq in args:
         if len(seq) % 3:
             raise ValueError ("The length of sequences is not multiple of three")
