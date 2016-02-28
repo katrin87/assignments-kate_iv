@@ -77,7 +77,7 @@ def translator(triplet):
     if triplet in CODONS.keys():
         return CODONS[triplet]
 
-def reconstruct_protein_alignment(seq):
+def reconstruct_protein_alignment(args):
     """
     "Greedy" Reconstructs the aligned protein sequences on the base of aligned nucleotide sequences.
     Assumptions: nucleotide sequences consist only from coding regions, three gaps in nucleotide
@@ -86,26 +86,29 @@ def reconstruct_protein_alignment(seq):
     :param args: aligned DNA sequence
     :return: tuple of aligned protein sequence
     """
-    if len(seq) % 3:
-        raise ValueError ("The length of sequences is not multiple of three")
-    GAP = "-"
-    triplet = []
-    gap_counter = 0
-    aminoacid_seq = []
-    for elem in seq:
-        if elem == GAP:
-            gap_counter += 1
-        elif elem in NUCLEOTIDES:
-            triplet.append(elem)
-        else:
-            raise ValueError ("Incorrect symbol in sequence")
-        if gap_counter == 3:
-            aminoacid_seq.append(GAP)
-            gap_counter = 0
-        if len(triplet) == 3:
-            aminoacid_seq.append(translator(''.join(triplet)))
-            triplet = []
-    return ''.join(aminoacid_seq)
+    aminoacid_seq_massive = []
+    for seq in args:
+        if len(seq) % 3:
+            raise ValueError ("The length of sequences is not multiple of three")
+        GAP = "-"
+        triplet = []
+        gap_counter = 0
+        aminoacid_seq = []
+        for elem in seq:
+            if elem == GAP:
+                gap_counter += 1
+            elif elem in NUCLEOTIDES:
+                triplet.append(elem)
+            else:
+                raise ValueError ("Incorrect symbol in sequence")
+            if gap_counter == 3:
+                aminoacid_seq.append(GAP)
+                gap_counter = 0
+            if len(triplet) == 3:
+                aminoacid_seq.append(translator(''.join(triplet)))
+                triplet = []
+        aminoacid_seq_massive.append(''.join(aminoacid_seq))
+    return tuple(aminoacid_seq_massive)
 
-args = ["AAAGGGTTT", "AA-GGGT--", "TAAGGGTTT", "A-AGGGT--"]
-print(tuple(reconstruct_protein_alignment(seq) for seq in args))
+args = ("AAAGGGTTT", "AA-GGGT--", "TAAGGGTTT")
+print(reconstruct_protein_alignment(args))
